@@ -1,0 +1,20 @@
+plugins:
+  demonstrator_enabled:
+    default: true
+    client: true
+  demonstrator_group:
+    type: group
+    client: true
+    default: "demonstrator"
+  demonstrator_manager_group:
+    type: group
+    client: true
+    default: ""
+  demonstrator_removed_group:
+    type: group
+    client: true
+    default: ""
+  demonstrator_category:
+    type: text
+    client: true
+    default: "demonstrator"
