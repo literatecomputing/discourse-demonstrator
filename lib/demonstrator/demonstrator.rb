@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 FILENAME_REGEX = /\[(.+?\.xls\|attachment\])\(upload:\/\/(.+?\.xls)\)/
-local_store = FileStore::LocalStore.new
 
 class Demonstrator
 
@@ -44,10 +43,6 @@ class Demonstrator
     book = Spreadsheet.open(filename)
     sheet = book.worksheet 0
     email_column = sheet.first.find_index('Email')
-    sheet.each 1 do |row|
-      next unless row[0] && row[email_column]
-      ids.append({ id: row[0], email: row[email_column] })
-    end
     ids
   end
 
@@ -62,6 +57,26 @@ class Demonstrator
       puts "GOING TO INVITE!!!!!  #{opts}"
       Invite.generate(invited_by, opts)
     end
+  end
+
+  def self.remove_missing_id(ids)
+    demonstrator_ids = ids.map {|i| i[:id]}
+    manager_group = Group.find_by_name(SiteSetting.demonstrator_manager_group)
+    removed_group = Group.find_by_name(SiteSetting.demonstrator_manager_group)
+    demo_group = Group.find_by_name(SiteSetting.demonstrator_group)
+    users = User.all
+    users.each do |user|
+      next unless ucf = UserCustomField.find_by(user_id: user.id, name: SiteSetting.demonstrator_ucf)
+      next if demonstrator_ids.include?(ucf.value)
+      next if user.staff?
+      next if GroupUser.find_by(user_id: user.id, group_id: manager_group.id)
+      user.email="#{user.username}@removed.invalid"
+      user.active=false
+      user.save
+      demo_group_user = GroupUser.find_by(user_id: user.id, group_id: demo_group.id)
+      demo_group_user.destroy if demo_group_user
+      GroupUser.create(user_id: user.id, group_id: removed_group.id)
+      Rails.logger.warn("Removing user #{user.username}")
   end
 
 end

@@ -18,3 +18,7 @@ plugins:
     type: text
     client: true
     default: "demonstrator"
+  demonstrator_ucf:
+    type: text
+    client: true
+    default: "user_field_1"
