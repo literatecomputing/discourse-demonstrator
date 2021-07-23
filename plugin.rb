@@ -19,7 +19,7 @@ after_initialize do
   add_model_callback(Topic, :after_create) do
     # TODO: put in job rather than wait on post
     puts "----> doing the callback for #{self.title}"
-    d_cat = Category.find_by_name(SiteSetting.demonstrator_category)
+    d_cat = Category.find(SiteSetting.demonstrator_category)
     puts "----> enqueing new post in #{d_cat.name}. cat id: #{d_cat.id} -- self cat id: #{self.category.id}"
     Jobs.enqueue(:process_topic, topic_id: self.id) if d_cat.id == self.category.id
   end

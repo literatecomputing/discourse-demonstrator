@@ -3,19 +3,19 @@ plugins:
     default: true
     client: true
   demonstrator_group:
-    type: text
+    type: group
     client: true
     default: "demonstrator"
   demonstrator_manager_group:
-    type: text
+    type: group
     client: true
     default: ""
   demonstrator_removed_group:
-    type: text
+    type: group
     client: true
     default: ""
   demonstrator_category:
-    type: text
+    type: category
     client: true
     default: "demonstrator"
   demonstrator_ucf:
