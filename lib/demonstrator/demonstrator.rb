@@ -11,11 +11,8 @@ class Demonstrator
       ids = get_demonstrator_ids(filename)
       invited_by = User.find(topic.user_id)
       @process_log = ""
-      puts "\n\n\----->INVITE MISSING USERS"
       invite_missing(ids, invited_by)
-      puts "\n\n\----->remove missing IDS"
       remove_missing_id(ids)
-      puts "\n\n\----->notify complete"
 
       notify_complete(topic)
       sleep 30
@@ -65,6 +62,7 @@ class Demonstrator
       next unless id[:id]
       next if UserCustomField.find_by(value: id[:id], name: SiteSetting.demonstrator_ucf)
       next if User.find_by_email(id[:email])
+      next if Invite.find_by(email: id[:email])
       @process_log += "#{id[:email]}, "
       opts = {}
       opts[:email] = id[:email]
@@ -90,14 +88,11 @@ class Demonstrator
       if ucf
         gu = GroupUser.find_by(user_id: user.id, group_id: demo_group.id)
         id = (ids.select { |i| i['id'] == ucf.value }).first
-        puts "GOT ID: #{id}"
         if id
           if id['add_to_group']
             GroupUser.find_or_create_by(user_id: user.id, group_id: demo_group.id)
-            puts "ADDING TO GROUP"
             @process_log += ("#{user.username} => #{demo_group.name}\n")
           else
-            puts "REMOVER GROM GROUP"
             gu.destroy if gu
             @process_log += ("#{user.username} XXX #{demo_group.name}\n")
           end
