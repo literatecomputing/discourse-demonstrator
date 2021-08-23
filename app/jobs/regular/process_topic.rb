@@ -6,9 +6,7 @@ module Jobs
     #sidekiq_options retry: false
 
     def execute(args)
-      puts "----> execute process_topic for #{args[:topic_id]}"
       topic = Topic.find(args[:topic_id])
-      puts "-----> got topic!! #{topic.title}"
       Demonstrator::process_topic(topic)
     end
   end
