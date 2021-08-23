@@ -2,15 +2,15 @@ en:
   site_settings:
     demonstrator_enabled: "Enable the Demonstrator Plugin"
     demonstrator_manager_group: "Add users to this group to have them exempt from processing"
-    demonstrator_removed_group: "Group to move deleted users from"
+    demonstrator_removed_group: "Group to move deleted demonstrators to"
     demonstrator_category: "Category for posting new XLS files to be processed"
     demonstrator_ucf: "User Custom Field for Demonstrator ID (e.g., user_field_1)"
-    demonstrator_group: "Group to add Demonstrators to"
+    demonstrator_group: "Group for first level Demonstrators"
 de:
   site_settings:
     demonstrator_enabled: "Aktivieren Sie das Demonstrator-Plugin"
     demonstrator_manager_group: "Fügen Sie dieser Gruppe Benutzer hinzu, damit sie von der Verarbeitung ausgenommen werden"
-    demonstrator_removed_group: "Gruppe, aus der gelöschte Benutzer verschoben werden sollen"
+    demonstrator_removed_group: "Gruppe zum Verschieben gelöschter Demonstratoren in"
     demonstrator_category: "Kategorie zum Posten neuer zu verarbeitender XLS-Dateien"
     demonstrator_ucf: "Benutzerdefiniertes Feld des Benutzers für die Demonstrator-ID (z. B. user_field_1)"
-    demonstrator_group: "Gruppe, zu der Demonstratoren hinzugefügt werden sollen"
+    demonstrator_group: "Gruppe für Demonstratoren der ersten Stufe"
