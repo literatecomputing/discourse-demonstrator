@@ -52,6 +52,7 @@ class Demonstrator
     sheet.each 1 do |row|
       ids.append({ id: row[id_column], email: row[email_column], add_to_group: (row[group_member_column] == 1) })
     end
+    Rails.logger.error("IDS: #{ids}")
     ids
   end
 
