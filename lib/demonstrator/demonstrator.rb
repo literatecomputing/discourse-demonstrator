@@ -52,7 +52,6 @@ class Demonstrator
     sheet.each 1 do |row|
       ids.append({ id: row[id_column], email: row[email_column], add_to_group: (row[group_member_column] == 1) })
     end
-    Rails.logger.error("IDS: #{ids}")
     ids
   end
 
@@ -78,8 +77,6 @@ class Demonstrator
   def self.remove_missing_id(ids)
     @process_log += "\n\n###Removing Users\n"
     demonstrator_ids = ids.map { |i| (i[:id]).to_i }
-    Rails.logger.error("demonstrator_ids: #{demonstrator_ids}")
-    @process_log += "IDS: #{demonstrator_ids}"
     manager_group = Group.find_by_name(SiteSetting.demonstrator_manager_group)
     removed_group = Group.find_by_name(SiteSetting.demonstrator_removed_group)
     demo_group = Group.find_by_name(SiteSetting.demonstrator_group)
@@ -101,7 +98,6 @@ class Demonstrator
           end
         end
       end
-      @process_log += "#{user.username}: #{ucf.value}. Include? #{demonstrator_ids.include?(ucf.value.to_i)}\n"
       next if ucf && demonstrator_ids.include?(ucf.value.to_i)
       user.email = "#{user.username}@removed.invalid"
       user.active = false
