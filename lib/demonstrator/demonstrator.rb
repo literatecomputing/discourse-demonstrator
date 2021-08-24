@@ -98,7 +98,8 @@ class Demonstrator
           end
         end
       end
-      next if ucf && demonstrator_ids.include?(ucf.value)
+      @process_log += "#{user.username}: #{ucf.value}. Include? #{demonstrator_ids.include?(ucf.value.to_i)}"
+      next if ucf && demonstrator_ids.include?(ucf.value.to_i)
       user.email = "#{user.username}@removed.invalid"
       user.active = false
       user.save
