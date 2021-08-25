@@ -62,7 +62,7 @@ class Demonstrator
       next unless id[:id]
       next if UserCustomField.find_by(value: id[:id], name: SiteSetting.demonstrator_ucf)
       next if User.find_by_email(id[:email])
-      invite = Invite.find_by(email: id[:email])
+      invite = Invite.find_by(email: (id[:email]).downcase)
       if invite
         @process_log += "Skipping invite for #{id[:email]}\n"
         next
